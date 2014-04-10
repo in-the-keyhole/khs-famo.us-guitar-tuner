@@ -21,12 +21,17 @@ define(function(require, exports, module) {
         this._stateModifier = stateModifier;
         this._offset = offset;
         this.on('click', this.onClick);
+        this.on('pluck', this.onPluck);
     };
     
     StringSurface.prototype = Object.create(Surface.prototype);
 	StringSurface.prototype.constructor = StringSurface;
     
-    StringSurface.prototype.onClick = function () {
+    StringSurface.prototype.onClick = function (e) {
+        this.emit('pluck', e);
+    };
+    
+    StringSurface.prototype.onPluck = function () {
         var me = this;
         var audio = document.createElement('audio');
         var source = document.createElement('source');
@@ -46,7 +51,6 @@ define(function(require, exports, module) {
                 dampingRatio: 0.1
             }
         );
-        
         
         setTimeout(function() {        
             me._stateModifier.setTransform(
