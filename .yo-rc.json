@@ -1,0 +1,12 @@
+{
+  "generator-famous": {
+    "projectName": "myapp",
+    "projectDesc": "Seed project to get started with Famo.us",
+    "authorLogin": "zgardner",
+    "author": {
+      "name": "Zach Gardner",
+      "email": "zgardner@keyholesoftware.com"
+    },
+    "noTinfoil": true
+  }
+}
