@@ -8,13 +8,13 @@ define(function(require, exports, module) {
     Transitionable.registerMethod('snap', SnapTransition);
     Transitionable.registerMethod('spring', SpringTransition);
 
-    function StringSurface(string, audioFile, width, stateModifier, offset) {
+    function StringSurface(index, string, audioFile, width, stateModifier, offset) {
         Surface.apply(this, [{
             size: [width],
-            content: string,
-            properties: {
-                backgroundColor: '#FF0000'
-            }
+            classes: [
+                'string',
+                'string-' + index
+            ]
         }]);
         
         this._audioFile = audioFile;

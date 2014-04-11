@@ -62,13 +62,14 @@ define(function(require, exports, module) {
             var me = this;
             var string = me._strings[index];
             var offset = me._getOffset(index);
-            var width = 20 - (2 * (index - 1));
+            var baseStringWidth = Math.max(20, (document.body.clientWidth / me._strings.length) / 8);
+            var width = Math.max(10, baseStringWidth - ((index < 4 ? 3 : 5) * (index - 1)));
             var modifier = new StateModifier({
                 origin: [0.5, 0.5],
                 transform: Transform.translate(offset, 0, 0)
             });
             
-            string.surface = new StringSurface(string.note, 'audio/' + string.note.toLowerCase() + '-' + index + '.mp3', width, modifier, offset);
+            string.surface = new StringSurface(string.string, string.note, 'audio/' + string.note.toLowerCase() + '-' + index + '.mp3', width, modifier, offset);
             
             string.surface.on('click', function () {
                 me.emit('stringClick', index);

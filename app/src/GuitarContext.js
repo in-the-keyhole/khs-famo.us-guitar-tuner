@@ -63,7 +63,7 @@ define(function(require, exports, module) {
         me._activeString = string;
         me._pickController.setOffset(offset);
         
-        if (!string) {
+        if (string === undefined) {
             return;
         }
         

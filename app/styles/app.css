@@ -7,3 +7,33 @@ body {
     background-position: center;
     background-size: cover;
 }
+
+.string {
+    background-image: url(../images/string.png);
+    background-position: center;
+    background-size: contain;
+}
+
+.string-0 {
+    background-color: #88493c;
+}
+
+.string-1 {
+    background-color: #352515;
+}
+
+.string-2 {
+    background-color: #513424;
+}
+
+.string-3 {
+    background-color: #583e27;
+}
+
+.string-4 {
+    background-color: #1b1b1b;
+}
+
+.string-5 {
+    background-color: #262425;
+}
