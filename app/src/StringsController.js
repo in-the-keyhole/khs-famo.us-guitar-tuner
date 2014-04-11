@@ -45,6 +45,8 @@ define(function(require, exports, module) {
             }
         ];
         this._delta = 100;
+        
+        this.on('pluckString', this._onPluckString);
     }
     
     StringsController.prototype = Object.create(Object.prototype);
@@ -78,11 +80,18 @@ define(function(require, exports, module) {
     StringsController.prototype._onPluck = function (index) {
         this._activeString = index;
         
-        this.emit('stringActive', {offset: this._getOffset(index)});
+        this.emit('stringActive', {
+            index: index,
+            offset: this._getOffset(index)
+        });
     };
     
     StringsController.prototype._getOffset = function (index) {
         return (((this._strings.length / 2) * this._delta * -1) + (this._delta / 2)) + (index * this._delta);
+    };
+    
+    StringsController.prototype._onPluckString = function (index) {
+        this._strings[index].surface.emit('pluck', {});
     };
     
     StringsController.prototype.on = function (event, callback) {
@@ -98,7 +107,7 @@ define(function(require, exports, module) {
     StringsController.prototype.emit = function (event, data) {
         var callbacks = this._events[event];
         for (var i = 0; i < callbacks.length; i++) {
-            callbacks[i](data);
+            callbacks[i].call(this, data);
         }
     };
     

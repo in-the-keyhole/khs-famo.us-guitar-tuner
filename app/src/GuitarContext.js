@@ -35,7 +35,14 @@ define(function(require, exports, module) {
 
         // Create strings
         me._stringsController.on('stringActive', function (data) {
+            me._activeString = data.index;
             me._pickController.setOffset(data.offset);
+            
+            setTimeout(function () {
+                if (me._activeString == data.index) {
+                    me._stringsController.emit('pluckString', data.index);
+                }
+            }, 2000);
         });
         
         
