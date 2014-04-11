@@ -32,25 +32,44 @@ define(function(require, exports, module) {
         function pluckString (offset) {
             pickController.setOffset(offset);
         };
+        
+        me._stringsController.on('stringClick', function (string) {
+            if (me._activeString != string) {
+                me._stringsController.emit('pluckString', string);
+            }
+            else {
+                me._setActiveString();
+            }
+        });
 
         // Create strings
         me._stringsController.on('stringActive', function (data) {
-            if (me._autoPluckTimeout) {
-                clearTimeout(me._autoPluckTimeout);
-            }
-        
-            me._activeString = data.index;
-            me._pickController.setOffset(data.offset);
-            
-            me._autoPluckTimeout = setTimeout(function () {
-                me._stringsController.emit('pluckString', data.index);
-            }, 2000);
+            me._setActiveString(data.index, data.offset);
         });
         
         
         // Create pick    
         me._pickController.render(me);
         me._stringsController.render(me);
+    };
+    
+    GuitarContext.prototype._setActiveString = function (string, offset) {
+        var me = this;
+    
+        if (me._autoPluckTimeout) {
+            clearTimeout(me._autoPluckTimeout);
+        }
+    
+        me._activeString = string;
+        me._pickController.setOffset(offset);
+        
+        if (!string) {
+            return;
+        }
+        
+        me._autoPluckTimeout = setTimeout(function () {
+            me._stringsController.emit('pluckString', string);
+        }, 2000);
     };
     
     module.exports = GuitarContext;

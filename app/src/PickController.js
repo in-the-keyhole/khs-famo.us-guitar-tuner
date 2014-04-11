@@ -6,11 +6,12 @@ define(function(require, exports, module) {
 
     function PickController() {
         this._pickSurface = new PickSurface();
+        this._initialTransform = Transform.translate(-128, -128, 1);
         this._pickModifier = new StateModifier({
-            transform: Transform.translate(-128, -128, 1)
+            transform: this._initialTransform
         });
         
-        this._pickRendered = false;
+        this._pickVisible = false;
     }
     
     PickController.prototype = Object.create(Object.prototype);
@@ -21,9 +22,16 @@ define(function(require, exports, module) {
     };
     
     PickController.prototype.setOffset = function (offset) {
+        if (!offset) {
+            this._pickModifier.setTransform(this._initialTransform);
+            this._pickModifier.setOrigin([0, 0]);
+            this._pickVisible = false;
+            return;
+        }
+    
         this._pickModifier.setOrigin([0.5, 0.5]);
             
-        if (this._pickRendered) {
+        if (this._pickVisible) {
             this._pickModifier.setTransform(Transform.translate(offset + (128 / 2) + 5, 0, 1));
             this._pickModifier.setTransform(Transform.translate(offset + (128 / 2), 0, 1), {
                     method: 'snap',
@@ -38,7 +46,7 @@ define(function(require, exports, module) {
                     period: 125,
                     dampingRatio: 0.1
             });
-            this._pickRendered = true;
+            this._pickVisible = true;
         }
     };
     

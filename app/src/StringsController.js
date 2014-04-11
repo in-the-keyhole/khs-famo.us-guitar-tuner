@@ -70,6 +70,10 @@ define(function(require, exports, module) {
             
             string.surface = new StringSurface(string.note, 'audio/' + string.note.toLowerCase() + '-' + index + '.mp3', width, modifier, offset);
             
+            string.surface.on('click', function () {
+                me.emit('stringClick', index);
+            });
+            
             string.surface.on('pluck', function () {
                 me._onPluck(index);
             });
