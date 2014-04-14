@@ -8,6 +8,7 @@ define(function(require, exports, module) {
     
     var StringsController = require('StringsController');
     var PickController = require('PickController');
+    var ForkMeController = require('ForkMeController');
     
     function GuitarContext() {
         var el = document.createElement(Engine.getOptions('containerType'));
@@ -28,6 +29,7 @@ define(function(require, exports, module) {
         
         me._pickController = new PickController();
         me._stringsController = new StringsController();
+        me._forkMeController = new ForkMeController();
         
         function pluckString (offset) {
             pickController.setOffset(offset);
@@ -51,6 +53,7 @@ define(function(require, exports, module) {
         // Create pick    
         me._pickController.render(me);
         me._stringsController.render(me);
+        me._forkMeController.render(me);
     };
     
     GuitarContext.prototype._setActiveString = function (string, offset) {

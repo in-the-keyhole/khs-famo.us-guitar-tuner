@@ -10,4 +10,7 @@ define(function(require, exports, module) {
     // create the main context
     var mainContext = new GuitarContext();
     Engine.registerContext(mainContext);
+    
+    
+    // Add fork me on github conte
 });
